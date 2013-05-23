@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+<script src="http://openlayers.org/api/OpenLayers.js"></script>
+<style type="text/css">
+#map {
+    width: 600px;
+    height: 450px;
+    border: 1px solid black;
+}
+</style>
+<script>
+    window.onload = function() {
+        var map;
+	var map = new OpenLayers.Map('map');
+        map.addLayer(new OpenLayers.Layer.WMS( "SRTM relief",
+            "http://iceds.ge.ucl.ac.uk/cgi-bin/icedswms?",
+            { layers: "srtm30" },
+            { attribution: 'SRTM relief maps from <a target="_blank" href="http://iceds.ge.ucl.ac.uk/">ICEDS</a>' }
+        ));
+        map.setCenter(new OpenLayers.LonLat(7, 48.9), 5);
+    }
+</script>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>

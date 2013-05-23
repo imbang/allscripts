@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDVNG9qZobNcECNBqzmPuWVGzA9yAofsnI&sensor=true">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+	  var content = document.createElement("DIV");
+	  var title = document.createElement("DIV");
+    	  content.appendChild(title);
+	  var infowindow = new google.maps.InfoWindow({
+   		content: content
+    		});
+	
+        var mapOptions = {
+          center: new google.maps.LatLng(-7.397, 108.644),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+	
+		var myLatlng = new google.maps.LatLng(-7.363882,108.044922);		
+		var marker = new google.maps.Marker({
+    				position: myLatlng,
+    				title:"Hello World!"
+		});
+		marker.setMap(map);
+	
+	var markers = [
+      { lat: -7.85, lng: 108.05, name: "marker 1" },
+      { lat: -7.90, lng: 108.10, name: "marker 2" },
+      { lat: -7.95, lng: 108.15, name: "marker 3" },
+      { lat: -7.85, lng: 108.15, name: "marker 4" }
+    	];
+	
+	for (index in markers) addMarker(markers[index]);
+    	function addMarker(data) {
+   		var marker = new google.maps.Marker({
+  			position: new google.maps.LatLng(data.lat, data.lng),
+  			map: map,
+        		title: data.name
+   		});
+		google.maps.event.addListener(marker, "click", function() {
+  			openInfoWindow(marker);
+   		});
+	}
+	var pin = new google.maps.MVCObject();
+	function openInfoWindow(marker) {
+   		title.innerHTML = marker.getTitle();
+   		pin.set("position", marker.getPosition());
+   		infowindow.open(map, marker);
+	}
+	}
+    </script>
+  </head>
+  <body onload="initialize()">
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+  </body>
+</html>
